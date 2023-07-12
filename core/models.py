@@ -26,7 +26,7 @@ class Location(models.Model):
 class Phone(models.Model):
     name = models.CharField(max_length=255, verbose_name='Модель телефона')
     dt = models.DateField(verbose_name='Дата выхода')
-    volume = models.ManyToManyField('core.Buttery', related_name='phone', verbose_name='Заряд батареи')
+    buttery = models.ManyToManyField('core.Buttery', related_name='phone', verbose_name='Заряд батареи')
 
     class Meta:
         verbose_name = 'Смартфоны'
