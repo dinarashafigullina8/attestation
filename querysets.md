@@ -70,3 +70,18 @@ Company.objects.filter(phone__name='Iphone 11', phone__buttery__volume=3000) - �
 Company.objects.filter(phone__name='Iphone 11').filter(phone__buttery__volume=3000) - компании, 
 у которых выпускался iphone 11 и компании, у телефонов которых батарея 3000
 ```
+- Фильтры могут ссылаться на поля модели
+``` 
+from django.db.models import F
+Company.objects.filter(location__country=F('location__city'))
+Объекты F() поддерживают побитовые операции с помощью .bitand(), .bitor(), .bitxor(), .bitrightshift() и .bitleftshift()
+```
+- Выражения могут ссылаться на преобразования
+```
+from django.db.models import Min
+Phone.objects.aggregate(first_published_year=Min('dt_year'))
+```
+- Экранирующие знаки процента и подчеркивания в выражениях LIKE
+``` 
+
+```
