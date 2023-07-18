@@ -271,5 +271,44 @@ Phone.objects.filter(buttery_isnull=True)
 ```
 - regex (iregex)
 ```angular2html
-
+Phone.objects.get(name__regex=r'\AIphone')
 ```
+- aggregate
+```angular2html
+Phone.objects.count() - возвращает (словарь) количество телефонов
+Phone.objects.filter(dt__year__gte=2020).aggregate(
+Avg('buttery__volume')) - возвращает средний объем батареи
+для телефонов, выпущенных не ранее 2020
+Phone.objects.aggregate(Max('buttery__volume')) -
+возвращается максимальный объем батареи у телефонов
+```
+- annotate
+```angular2html
+Разница агрегации и аннотации:
+В отличие от этого aggregate() , annotate() это не 
+конечный пункт. Результатом предложения annotate()
+является объект QuerySet . Этот объект вполне может быть 
+изменен операцией другого типа QuerySet , например filter(), 
+order_by() или даже другими вызовами annotate()
+Aggregation - обрабатывает все результаты запроса (queryset).
+Annotation - обрабатывает значение каждого значения (item) 
+в запросе (queryset) отдельно.
+companies = Company.objects.annotate(
+num_phones=Count('phone')) - возвращает Queryset, в 
+котором для каждой компании вычислено количество 
+выпущенных телефонов
+
+buttery_3000 = Count('name', filter=
+Q(buttery__volume__gte=3000))
+buttery_5000 = Count('name', filter=
+Q(buttery__volume__lte=5000))
+phones = Phone.objects.annotate(buttery_3000=
+buttery_3000).annotate(buttery_5000=buttery_5000) - 
+возвращает список телефонов с подсчетом количества 
+телефонов с батареей выше 5000 и ниже 3000
+
+companies = Company.objects.annotate(num_phones=
+Count('phone')).order_by('-num_phones')[:5] - 
+возвращает список топ-5 компаний по количеству телефонов
+```
+
