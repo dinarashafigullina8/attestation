@@ -311,4 +311,41 @@ companies = Company.objects.annotate(num_phones=
 Count('phone')).order_by('-num_phones')[:5] - 
 возвращает список топ-5 компаний по количеству телефонов
 ```
+- filter() и exclude() + aggregate
+```angular2html
+Phone.objects.filter(name__startswith=
+"Iphone").aggregate(Avg('buttery__volume'))
+```
+- Фильтрация по аннотациям
+```angular2html
+Company.objects.annotate(num_phones=
+Count('phone')).filter(num_phones__gt=1)
+```
+- Порядок предложений annotate() и filter()
+```angular2html
+Фильтрация влияет на аннотацию только при условии, 
+что сначала идет фильтрация
+```
+- order_by() + annotate
+```angular2html
+Company.objects.annotate(num_phones=
+Count('phone')).order_by('num_phones')
+```
+- valuess() + annotate
+```angular2html
+Phone.objects.values('name').annotate(average_buttery=
+Avg('buttery__volume')) - получаем аннотированный 
+результат только для каждого уникального названия компании. 
+Это означает, что если у вас есть две компании с одним
+и тем же название, их результаты будут объединены в один 
+результат в выводе запроса; среднее значение будет 
+вычислено как среднее по батарее телефонов обоих компаний.
 
+Действует так же, как filter() + annotate
+```
+- Агрегирование аннотаций
+```angular2html
+Company.objects.annotate(num_phones=
+Count('phone')).aggregate(Avg('num_phones')) - вернет 
+среднее количество телефонов на компанию
+```
