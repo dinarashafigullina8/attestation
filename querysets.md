@@ -174,3 +174,102 @@ b = Buttery.objects.get(pk=1)
 
 Phone.objects.filter(buttery=b).delete()
 ```
+- as_manager()
+```angular2html
+class PhoneQuerySet(models.QuerySet):
+    def name(self):
+        return self.filter(name__contains='Iphone')
+
+
+class Phone(models.Model):
+    ...
+    name = PhoneQuerySet.as_manager()
+```
+- explain()
+```
+print(Phone.objects.filter(name__contains='Iphone'
+).explain())
+2 0 0 SCAN core_phone
+```
+- in
+```angular2html
+Phone.objects.filter(id__in=[1,3,5])
+```
+- startswith (istartswith)
+```angular2html
+Phone.objects.filter(name__startswith='Iphone')
+```
+- endswith (iendswith)
+```angular2html
+Phone.objects.filter(name__endswith='11')
+```
+- range
+```angular2html
+import datetime
+start_date = datetime.date(2005, 1, 1)
+end_date = datetime.date(2015, 3, 31)
+Phone.objects.filter(dt__range=(start_date, end_date))
+```
+- date
+```angular2html
+Company.objects.filter(dt__date=datetime.date(2005, 1, 1))
+(Эквивалентный фрагмент кода SQL для этого поиска не включен,
+поскольку реализация соответствующего запроса варьируется в зависимости 
+от разных механизмов баз данных.)
+```
+- year
+```angular2html
+Company.objects.filter(dt__year=1976)
+```
+- iso_year
+```angular2html
+Company.objects.filter(dt__iso_year=1976)
+```
+- month
+```angular2html
+Company.objects.filter(dt__month=12)
+```
+- day
+```angular2html
+Company.objects.filter(dt__day__gte=7)
+```
+- week
+```angular2html
+Company.objects.filter(dt__week=9)
+```
+- week_day
+```
+Company.objects.filter(dt__week_day=1)
+```
+- iso_week_day
+```angular2html
+Company.objects.filter(dt__iso_week_day=1)
+```
+- quarter
+```angular2html
+Company.objects.filter(dt__quarter=1)
+```
+- time
+```angular2html
+Company.objects.filter(dt__time=date.time(14,30))
+```
+- hour
+```angular2html
+Company.objects.filter(dt__hour=1)
+```
+- minute
+```angular2html
+Company.objects.filter(dt__minute=1)
+```
+- second 
+```angular2html
+Company.objects.filter(dt__second=1)
+```
+- isnull
+```angular2html
+Phone.objects.filter(buttery_isnull=True)
+```
+- regex (iregex)
+```angular2html
+
+```
