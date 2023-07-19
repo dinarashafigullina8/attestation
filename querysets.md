@@ -141,6 +141,78 @@ Company.objects.filter(location__country=F('location__city'))
 from django.db.models import Min
 Phone.objects.aggregate(first_published_year=Min('dt_year'))
 ```
+- alias()
+```angular2html
+company = Company.objects.alias(phones=
+Count('phone')).filter(phones__gt=5)
+```
+- order_by()
+```angular2html
+Company.objects.filter(dt__year=1986).order_by('-dt')
+```
+- reverse()
+```angular2html
+my_queryset.reverse()[:5]
+```
+- distinct()
+```angular2html
+ Buttery.objects.distinct()
+```
+- values()
+```angular2html
+Phone.objects.filter(name__startswith='Iphone').values()
+```
+- values_list()
+```angular2html
+Phone.objects.values_list('id', 'name')
+```
+- none()
+```angular2html
+Phone.objects.none()
+```
+- union()
+```angular2html
+qs1 = Phone.objects.values_list('buttery')
+qs2 = Company.objects.values_list('name')
+qs1.union(qs2).order_by('name')
+```
+- intersection()
+```angular2html
+qs1 = Phone.objects.values_list('buttery')
+qs2 = Company.objects.values_list('name')
+qs3.intersection(qs1, qs2)
+```
+- difference()
+```angular2html
+qs1 = Phone.objects.values_list('buttery')
+qs2 = Company.objects.values_list('name')
+qs3.difference(qs1, qs2)
+```
+- extra()
+```angular2html
+Company.objects.extra(select={'is_recent': "dt > '2000-01-01'"})
+```
+- defer()
+```angular2html
+Phone.objects.defer("name", "dt") - поля, прописанные в defer()
+не загружаются
+```
+- only()
+```angular2html
+Phone.objects.only("name") - только те поля, которые прописаны в only()
+будут загружены
+```
+- using()
+```angular2html
+Phone.objects.using('backup') - Этот метод предназначен для указания 
+какую базу данных QuerySet будет использовать, если вы используете более 
+одной базы данных
+```
+- select_for_update()
+```angular2html
+phones = Phone.objects.select_for_update().filter(name=
+request.user)
+```
 - count()
 ```angular2html
 Phone.objects.count()
