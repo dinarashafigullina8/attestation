@@ -219,7 +219,8 @@ Phone.objects.count()
 ```
 - in_bulk()
 ```angular2html
-
+Phone.objects.in_bulk([1, 2]) - возвращает словарь 
+id - queryset
 ```
 - latest(), earliest()
 ```angular2html
