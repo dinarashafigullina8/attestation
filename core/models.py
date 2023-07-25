@@ -16,7 +16,6 @@ class Company(models.Model):
 
 class Location(models.Model):
     country = models.CharField(max_length=255, verbose_name='Страна')
-    city = models.CharField(max_length=255, verbose_name='Город')
 
     class Meta:
         verbose_name = 'Головной офис'
