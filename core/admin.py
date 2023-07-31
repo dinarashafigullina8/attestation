@@ -11,8 +11,8 @@ class CompanyAdmin(admin.ModelAdmin):
 
 @admin.register(Location)
 class LocationAdmin(admin.ModelAdmin):
-    list_display = ('country', 'city',)
-    search_fields = ('country', 'city',)
+    list_display = ('country',)
+    search_fields = ('country',)
 
 
 @admin.register(Phone)
