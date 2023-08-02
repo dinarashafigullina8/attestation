@@ -6,8 +6,6 @@ class Company(models.Model):
     dt = models.DateField(verbose_name='Дата создания компании')
     location = models.OneToOneField('core.Location', related_name='company', on_delete=models.CASCADE,
                                     verbose_name='Головной офис')
-    phone = models.ForeignKey('core.Phone', related_name='companies', on_delete=models.CASCADE,
-                              verbose_name='Модель телефона')
 
     class Meta:
         verbose_name = 'Компания'
@@ -26,6 +24,8 @@ class Phone(models.Model):
     name = models.CharField(max_length=255, verbose_name='Модель телефона')
     dt = models.DateField(verbose_name='Дата выхода')
     buttery = models.ManyToManyField('core.Buttery', related_name='phone', verbose_name='Заряд батареи')
+    company = models.ForeignKey('core.Company', related_name='phones', on_delete=models.CASCADE,
+                                verbose_name='Компания')
 
     class Meta:
         verbose_name = 'Смартфоны'
