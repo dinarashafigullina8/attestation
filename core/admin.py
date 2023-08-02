@@ -5,7 +5,7 @@ from core.models import Company, Location, Phone, Buttery
 
 @admin.register(Company)
 class CompanyAdmin(admin.ModelAdmin):
-    list_display = ('name', 'dt', 'location', 'phone')
+    list_display = ('name', 'dt', 'location')
     search_fields = ('name',)
 
 

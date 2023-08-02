@@ -17,11 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from core.views import phones_list, index, phone
+from core.views import index, PhoneListView, PhoneView
 
 urlpatterns = [
     path('', index, name='index'),
     path('admin/', admin.site.urls),
-    path('phones/<int:pk>/', phone, name='phones_list'),
-    path('phones/', phones_list, name='phone'),
+    path('phones/', PhoneListView.as_view(), name='phones_list'),
+    path('phones/<int:pk>/', PhoneView.as_view(), name='phone'),
 ]
